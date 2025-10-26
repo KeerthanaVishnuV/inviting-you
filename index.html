@@ -560,9 +560,23 @@
         @media (min-width: 880px) {
             footer { padding-left: 28px; padding-right: 28px; }
         }
+
+        /* copied header h1 styling so H1 looks the same when moved to top */
+        .hero-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4em;
+            margin: 18px 0 10px;
+            color: #d4af37;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            animation: fadeInDown 10s ease-out, glow 18s infinite alternate;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+
+    <!-- moved H1 to top so it appears first on the page -->
+    <h1 class="hero-title">Keerthana & Vishnu</h1>
 
     <!-- Floating Play Button -->
     <button id="playMusic" aria-pressed="false" aria-label="Play music">
@@ -577,7 +591,6 @@
 
     
     <header>
-        <h1>Keerthana & Vishnu</h1>
         <p>invite you to our wedding celebration</p>
     </header>
 
