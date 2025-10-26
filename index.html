@@ -587,6 +587,12 @@
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Invitation Overlay (new) -->
+    <div id="inviteOverlay" style="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;">
+      <button id="inviteBtn" style="padding:22px 38px;font-size:1.25em;border-radius:18px;border:none;background:linear-gradient(135deg,#b56576,#d4af37);color:#fff;font-family:'Cinzel',serif;font-weight:700;box-shadow:0 8px 32px rgba(0,0,0,0.18);cursor:pointer;transition:transform .14s;">
+        <i class="fas fa-play" style="margin-right:10px;"></i> We invite you...
+      </button>
+    </div>
     
     <header>
         <h1>Keerthana & Vishnu</h1>
@@ -915,6 +921,18 @@
         footerEl && footerEl.classList.add('enter');
       });
     })();
+
+    document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.getElementById('inviteOverlay');
+  var btn = document.getElementById('inviteBtn');
+  var audio = document.getElementById('weddingAudio');
+  if (btn && overlay && audio) {
+    btn.addEventListener('click', function() {
+      overlay.style.display = 'none';
+      audio.play && audio.play();
+    });
+  }
+});
     </script>
 </body>
 </html>
