@@ -32,7 +32,7 @@
             margin: 0 0 10px;
             color: #d4af37;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-            animation: fadeInDown 1.8s ease-out, glow 2s infinite alternate;
+            animation: fadeInDown 10s ease-out, glow 18s infinite alternate;
         }
         header p {
             font-family: 'Cinzel', serif;
@@ -70,6 +70,23 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* Typing animation for invitation text */
+        .invitation .typing {
+            display: inline-block;
+            white-space: pre-wrap;
+            max-width: 700px;
+            text-align: center;
+            border-right: .12em solid rgba(74,74,74,0.85);
+            padding-right: 6px;
+            font-style: italic;
+        }
+        @keyframes blinkCaret {
+            50% { border-color: transparent; }
+        }
+        .invitation .typing.caret {
+            animation: blinkCaret 1s steps(1) infinite;
         }
 
         /* Photos Carousel */
@@ -297,104 +314,277 @@
         .carousel-item:nth-child(4) { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
         .carousel-item:nth-child(5) { background: linear-gradient(135deg, #fccb90, #d57eeb); }
 
-        footer {
-            background: linear-gradient(135deg, #b56576, #d4af37);
+        /* Wishes form */
+        .wishes-section {
+            max-width: 900px;
+            margin: 24px auto 48px;
+            text-align: left;
+            padding: 22px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 18px 45px rgba(18,24,38,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .wishes-section h3 {
+            margin: 0 0 12px;
+            font-family: 'Cinzel', serif;
+            color: #2b2b2b;
+            font-size: 1.35rem;
+            letter-spacing: 0.6px;
+        }
+        .wishes-note {
+            color: #6b6b6b;
+            font-size: 0.92rem;
+            margin-bottom: 14px;
+        }
+
+        .wishes-form {
+            display: grid;
+            grid-template-columns: 1fr 260px;
+            gap: 12px;
+            align-items: start;
+        }
+
+        /* input group with icon */
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .input-group .input-icon {
+            position: absolute;
+            left: 12px;
+            color: #b56576;
+            font-size: 1.05rem;
+            pointer-events: none;
+        }
+        .wishes-form textarea,
+        .wishes-form input[type="text"] {
+            width: 100%;
+            padding: 12px 14px 12px 40px;
+            border-radius: 10px;
+            border: 1px solid #e6e6e6;
+            font-size: 0.95rem;
+            color: #333;
+            box-shadow: 0 10px 22px rgba(15,22,30,0.04);
+            transition: box-shadow .18s ease, border-color .12s ease, transform .08s ease;
+            resize: vertical;
+        }
+        .wishes-form textarea:focus,
+        .wishes-form input[type="text"]:focus {
+            outline: none;
+            border-color: rgba(181,101,118,0.95);
+            box-shadow: 0 8px 20px rgba(181,101,118,0.08);
+            transform: translateY(-1px);
+        }
+
+        .wishes-form textarea {
+            min-height: 120px;
+            max-height: 220px;
+            font-family: inherit;
+        }
+
+        .meta-column {
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            align-items:stretch;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg,#b56576,#d4af37);
             color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(181,101,118,0.15);
+            transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+            font-size: 0.98rem;
+        }
+        .submit-btn:active { transform: translateY(1px) scale(.995); }
+        .submit-btn[disabled] { opacity: .7; cursor: default; transform: none; }
+
+        .char-count {
+            font-size: 0.85rem;
+            color: #7a7a7a;
+            text-align: right;
+        }
+
+        .wish-success {
+            display: none;
+            background: linear-gradient(135deg,#f0fff4,#e8fff0);
+            color: #1e6b3a;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        }
+
+        @media (max-width: 880px) {
+            .wishes-form { grid-template-columns: 1fr; }
+            .meta-column { flex-direction: row; gap:8px; }
+            .meta-column > * { flex: 1; }
+            .char-count { text-align: left; }
+        }
+
+        /* Floating play button (styled) */
+        #playMusic {
+            position: fixed;
+            right: 20px;
+            bottom: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg,#b56576,#d4af37);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 30px rgba(181,101,118,0.18);
+            cursor: pointer;
+            z-index: 9999;
+            transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+            font-size: 1.12rem;
+            position: fixed;
+            right: 20px;
+            bottom: 24px;
+        }
+        #playMusic:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(181,101,118,0.22); }
+        #playMusic:focus { outline: 3px solid rgba(212,175,55,0.18); outline-offset: 3px; }
+
+        /* Small shine/halo so it reads as interactive */
+        #playMusic::after{
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 18%);
+            opacity: 0;
+            transition: opacity .18s ease;
+        }
+        #playMusic:hover::after { opacity: 1; }
+
+        /* pop animation for attention when audio is not playing */
+        @keyframes pop {
+            0%   { transform: translateY(0) scale(1); box-shadow: 0 12px 30px rgba(181,101,118,0.18); }
+            20%  { transform: translateY(-6px) scale(1.08); box-shadow: 0 22px 46px rgba(181,101,118,0.22); }
+            45%  { transform: translateY(0) scale(1); box-shadow: 0 12px 30px rgba(181,101,118,0.18); }
+            100% { transform: translateY(0) scale(1); box-shadow: 0 12px 30px rgba(181,101,118,0.18); }
+        }
+
+        /* animate only when NOT playing (so it stops when music plays) */
+        #playMusic:not(.playing) {
+            animation: pop 2.6s cubic-bezier(.2,.7,.2,1) infinite;
+        }
+
+        /* playing state (visual hint) */
+        #playMusic.playing {
+            background: linear-gradient(135deg,#6bbf8a,#2f8a56);
+            box-shadow: 0 16px 40px rgba(47,138,86,0.18);
+            animation: none !important;
+        }
+
+        /* Premium animated footer */
+        footer {
             text-align: center;
-            padding: 35px 20px;
-            margin-top: 50px;
+            padding: 36px 22px;
+            margin: 40px auto 80px;
+            background: linear-gradient(180deg,#fffdfa,#fbf6ec);
+            border-radius: 12px;
+            border-top: 1px solid rgba(212,175,55,0.06);
+            color: #2f2f2f;
+            font-size: 0.98rem;
+            box-shadow: 0 20px 50px rgba(18,24,38,0.06);
+            max-width: 1100px;
             position: relative;
             overflow: hidden;
         }
+
+        /* thin animated accent bar */
         footer::before {
             content: '';
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: rgba(255,255,255,0.05);
-            transform: rotate(30deg);
-            animation: shine 8s infinite;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 10px;
+            height: 6px;
+            width: 0;
+            background: linear-gradient(90deg, #b56576, #d4af37);
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(181,101,118,0.12);
+            animation: accentGrow 700ms cubic-bezier(.2,.8,.2,1) forwards;
+            opacity: 0.95;
         }
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+        @keyframes accentGrow { to { width: 62%; } }
+
+        /* footer text entrance animation (staggered when class 'enter' is added) */
+        footer p {
+            margin: 8px 0;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: footerFade 560ms ease forwards;
+        }
+        footer.enter p:nth-child(1) { animation-delay: 180ms; }
+        footer.enter p:nth-child(2) { animation-delay: 350ms; }
+        footer.enter p:nth-child(3) { animation-delay: 520ms; }
+        @keyframes footerFade {
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            header {
-                padding: 100px 15px;
-                background-attachment: scroll;
-            }
-            header h1 {
-                font-size: 3em;
-            }
-            header p {
-                font-size: 1.1em;
-            }
-            .section {
-                padding: 40px 15px;
-            }
-            .detail-block {
-                padding: 28px 20px;
-                width: 92%;
-            }
-            .detail-block i {
-                font-size: 2.2em;
-            }
-            .detail-block h2 {
-                font-size: 1.3em;
-            }
-            .countdown-box {
-                width: 55px;
-                height: 60px;
-                font-size: 1.1em;
-            }
-            .countdown-box span {
-                font-size: 0.65em;
-            }
-            .map {
-                height: 180px;
-            }
-            .photo-item img {
-                max-width: 250px;
-            }
+        /* subtle gold glow behind the last line (signature) */
+        footer p:last-child {
+            color: #2b2b2b;
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 2.5em;
-            }
-            .invitation {
-                font-size: 1em;
-            }
-            .countdown-box {
-                width: 48px;
-                height: 55px;
-                font-size: 1em;
-            }
-            .detail-block h2 {
-                font-size: 1.2em;
-            }
+        footer p:last-child::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14px;
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, rgba(212,175,55,0.9), rgba(181,101,118,0.9));
+            border-radius: 6px;
+            filter: blur(6px);
+            opacity: 0;
+            transition: opacity .35s ease;
+        }
+        footer.enter p:last-child::after { opacity: 1; }
+        /* make footer content a little narrower on wide screens for better composition */
+        @media (min-width: 880px) {
+            footer { padding-left: 28px; padding-right: 28px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Local Audio (No autoplay) -->
-    <audio id="weddingAudio" loop preload="auto">
-        <source src="music/tara.mp3" type="audio/mpeg">
+    <!-- Floating Play Button -->
+    <button id="playMusic" aria-pressed="false" aria-label="Play music">
+        <i class="fas fa-play" aria-hidden="true"></i>
+    </button>
+
+    <!-- Local Audio -->
+    <audio id="weddingAudio" loop preload="auto" autoplay>
+        <source src="music/tara2.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Header -->
+    
     <header>
-        <h1>Keerthana & Vishnu1</h1>
+        <h1>Keerthana & Vishnu</h1>
         <p>invite you to our wedding celebration</p>
     </header>
 
     <!-- Invitation Text -->
     <section class="section invitation">
-        <p>With immense joy and gratitude, we invite you to witness and bless our union as we begin this beautiful chapter of our lives together. Your presence will add to the magic of our special day.</p>
+        <!-- empty; JS will type into this element -->
+        <p id="invitationText" class="typing caret" aria-live="polite"></p>
     </section>
 
     <!-- Photos Carousel -->
@@ -430,9 +620,23 @@
             </div>
         </div>
         <div class="detail-block">
-            <i class="fa-duotone fa-location-dot" style="--fa-primary-color: #b56576; --fa-secondary-color: #d4af37;"></i>
-            <h2>Location</h2>
-            <p>Thiruvullakkavu Kalyanamandapam<br>Near Thiruvullakkavu Sree Dharma Sastha Temple<br>Thrissur, Kerala 680561</p>
+            <!-- Font Awesome (free) solid location pin -->
+            <i class="fa-solid fa-location-dot" style="color:#b56576; font-size:2.8em; margin-bottom:18px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));"></i>
+            <!-- Optional SVG fallback (uncomment to use instead of Font Awesome) -->
+            <!--
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                 style="margin-bottom:18px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <defs>
+                    <linearGradient id="locGrad" x1="0" x2="1">
+                        <stop offset="0" stop-color="#b56576"/>
+                        <stop offset="1" stop-color="#d4af37"/>
+                    </linearGradient>
+                </defs>
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="url(#locGrad)"/>
+            </svg>
+            -->
+             <h2>Venue</h2>
+             <p>Thiruvullakkavu Kalyanamandapam<br>Near Thiruvullakkavu Sree Dharma Sastha Temple<br>Thrissur, Kerala 680561</p>
             <div class="map-container">
                 <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.504!2d76.213624!3d10.445278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6082627c4b6b1%3A0x827e5f435c2c862c!2sThiruvullakkavu%20Sree%20Dharma%20Shastha%20Temple!5e0!3m2!1sen!2sin!4v1727462400000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <a href="https://www.google.com/maps/search/?api=1&query=Thiruvullakkavu+Kalyanamandapam+Thrissur" target="_blank" class="map-link">Get Directions</a>
@@ -443,100 +647,261 @@
     <!-- Quotes Carousel -->
     <section class="carousel-section">
         <div class="carousel-inner" id="carouselInner">
-            <div class="carousel-item">"Best wishes on this wonderful journey, as you build your new lives together" - Vishak</div>
-            <div class="carousel-item">"A successful marriage requires falling in love many times, always with the same person."</div>
-            <div class="carousel-item">"The best thing to hold onto in life is each other." - Audrey Hepburn</div>
-            <div class="carousel-item">"You are my today and all of my tomorrows." - Leo Christopher</div>
-            <div class="carousel-item">"In you, I've found the love of my life and my closest, truest friend."</div>
+            <div class="carousel-item">"Wishing you both a beautiful journey ahead filled with love, laughter and happiness." - Vishak</div>
+            <div class="carousel-item">"Besh wishes on this wonderful journey" - Sam</div>
+            <div class="carousel-item">"Love and happiness always..." - Jeeva </div>
+
         </div>
+    </section>
+
+    <!-- Send Wishes (added) -->
+    <section class="wishes-section" aria-labelledby="wishesHeading">
+        <h3 id="wishesHeading">Send your wishes</h3>
+        <p class="wishes-note">Share a short wish for the couple. Your message will appear in the quotes carousel for everyone to see.</p>
+
+        <form id="wishesForm" class="wishes-form" autocomplete="off" novalidate>
+            <div>
+                <label class="sr-only" for="wishInput">Your wish</label>
+                <div class="input-group">
+                    <i class="fa fa-feather input-icon" aria-hidden="true"></i>
+                    <textarea id="wishInput" placeholder="Write a warm wish (max 300 characters)..." maxlength="300" required></textarea>
+                </div>
+                <div class="char-count" id="wishCount">0 / 300</div>
+            </div>
+
+            <div class="meta-column" aria-hidden="false">
+                <div class="input-group" style="margin-bottom:6px;">
+                    <i class="fa fa-user input-icon" aria-hidden="true"></i>
+                    <input id="nameInput" type="text" placeholder="Your name (optional)" maxlength="60" />
+                </div>
+
+                <button type="submit" class="submit-btn" id="sendWishBtn" aria-live="polite">
+                    <i class="fa fa-paper-plane" style="margin-right:8px;"></i> Send Wish
+                </button>
+
+                <div class="wish-success" id="wishSuccess" role="status" aria-live="polite">
+                    Thank you — your wish was added.
+                </div>
+            </div>
+        </form>
+
+        <p style="font-size:.85rem;color:#888;margin-top:12px;">Note: Submitted wishes are visible to all visitors. Please avoid sharing personal data. Messages may be moderated.</p>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>We eagerly await your presence to make our day even more memorable.</p>
-        <p>For inquiries, contact [phone/email].</p>
         <p>With eternal love, Keerthana & Vishnu</p>
     </footer>
 
     <script>
-        // === PLAY MUSIC ON SCROLL (User Interaction) ===
-        const audio = document.getElementById('weddingAudio');
-        let hasScrolled = false;
+    // === CLEANED SCRIPTS: carousels, typing, countdown, wishes (localStorage) ===
 
-        function playOnScroll() {
-            if (!hasScrolled && window.scrollY > 50) {  // Trigger after 50px scroll
-                audio.play().catch(() => {});
-                hasScrolled = true;
-                // Remove listener after first play
-                window.removeEventListener('scroll', playOnScroll);
-            }
+    // PHOTOS CAROUSEL
+    const photosInner = document.getElementById('photosInner');
+    const photoItems = photosInner ? photosInner.children : [];
+    let photoIndex = 0;
+    function slidePhotos() {
+      if (!photoItems.length) return;
+      photoIndex = (photoIndex + 1) % photoItems.length;
+      photosInner.style.transform = `translateX(-${photoIndex * 100}%)`;
+    }
+    if (photosInner) setInterval(slidePhotos, 3500);
+
+    // QUOTES CAROUSEL
+    const carouselInner = document.getElementById('carouselInner');
+    let currentIndex = 0;
+    function slideCarousel() {
+      if (!carouselInner) return;
+      const items = carouselInner.children;
+      if (items.length === 0) return;
+      currentIndex = (currentIndex + 1) % items.length;
+      carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    if (carouselInner) setInterval(slideCarousel, 4000);
+
+    // COUNTDOWN
+    const weddingDate = new Date('December 20, 2025 10:30:00').getTime();
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    function animateFlip(element, value) {
+      if (!element) return;
+      const key = element.id;
+      animateFlip._last = animateFlip._last || {};
+      if (animateFlip._last[key] !== value) {
+        element.style.animation = 'none';
+        setTimeout(() => element.style.animation = 'flipIn 0.6s ease-out', 10);
+        animateFlip._last[key] = value;
+      }
+      const label = element.querySelector('span') ? element.querySelector('span').textContent : '';
+      element.innerHTML = `${value.toString().padStart(2, '0')}<span>${label}</span>`;
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = weddingDate - now;
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        animateFlip(daysEl, days);
+        animateFlip(hoursEl, hours);
+        animateFlip(minutesEl, minutes);
+        animateFlip(secondsEl, seconds);
+      } else {
+        if (daysEl) daysEl.innerHTML = '00<span>Days</span>';
+        if (hoursEl) hoursEl.innerHTML = '00<span>Hours</span>';
+        if (minutesEl) minutesEl.innerHTML = '00<span>Mins</span>';
+        if (secondsEl) secondsEl.innerHTML = '00<span>Secs</span>';
+      }
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // TYPING ANIMATION (invitation)
+    (function () {
+      const inviteText = "With immense joy and gratitude, we invite you to witness and bless our union as we begin this beautiful chapter of our lives together. Your presence will add to the magic of our special day.";
+      const el = document.getElementById('invitationText');
+      if (!el) return;
+      let i = 0;
+      const typingSpeed = 40;
+      function typeNext() {
+        el.textContent = inviteText.slice(0, i);
+        i++;
+        if (i <= inviteText.length) setTimeout(typeNext, typingSpeed);
+      }
+      setTimeout(typeNext, 600);
+    })();
+
+    // WISHES FORM (localStorage fallback; replace with server/Firestore later if needed)
+    (function () {
+      const form = document.getElementById('wishesForm');
+      const wishInput = document.getElementById('wishInput');
+      const nameInput = document.getElementById('nameInput');
+      const countEl = document.getElementById('wishCount');
+      const sendBtn = document.getElementById('sendWishBtn');
+      const successEl = document.getElementById('wishSuccess');
+
+      function updateCount() {
+        if (!wishInput || !countEl) return;
+        const len = wishInput.value.length;
+        countEl.textContent = `${len} / ${wishInput.maxLength || 300}`;
+        countEl.style.color = len > 270 ? '#b56576' : '#7a7a7a';
+      }
+      if (wishInput) {
+        wishInput.addEventListener('input', updateCount);
+        updateCount();
+      }
+
+      function addWishToCarousel({ name, wish }, makeActive = true) {
+        if (!carouselInner) return;
+        const div = document.createElement('div');
+        div.className = 'carousel-item new-wish';
+        div.textContent = `"${wish}" - ${name || 'Anonymous'}`;
+        carouselInner.appendChild(div);
+        if (makeActive) {
+          currentIndex = carouselInner.children.length - 1;
+          carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
+      }
 
-        // Also play on touchmove (for mobile)
-        window.addEventListener('scroll', playOnScroll);
-        window.addEventListener('touchmove', playOnScroll);
+      // load stored wishes
+      try {
+        const stored = JSON.parse(localStorage.getItem('weddingWishes') || '[]');
+        stored.forEach(w => addWishToCarousel(w, false));
+      } catch (e) { /* ignore parse errors */ }
 
-        // === COUNTDOWN ===
-        const weddingDate = new Date('December 20, 2025 10:30:00').getTime();
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
+      function showSuccess() {
+        if (!successEl) return;
+        successEl.style.display = 'block';
+        setTimeout(() => successEl.style.display = 'none', 3600);
+      }
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const wish = (wishInput && wishInput.value || '').trim();
+          const name = (nameInput && nameInput.value || '').trim() || 'Anonymous';
+          if (!wish) {
+            wishInput && wishInput.focus();
+            return;
+          }
 
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          // optimistic UI + local persist
+          sendBtn && (sendBtn.disabled = true, sendBtn.innerHTML = 'Sending…');
+          const item = { name, wish, createdAt: Date.now() };
+          try {
+            const arr = JSON.parse(localStorage.getItem('weddingWishes') || '[]');
+            arr.push(item);
+            localStorage.setItem('weddingWishes', JSON.stringify(arr));
+          } catch (err) { /* ignore */ }
 
-                animateFlip(daysEl, days);
-                animateFlip(hoursEl, hours);
-                animateFlip(minutesEl, minutes);
-                animateFlip(secondsEl, seconds);
-            } else {
-                daysEl.innerHTML = '00<span>Days</span>';
-                hoursEl.innerHTML = '00<span>Hours</span>';
-                minutesEl.innerHTML = '00<span>Mins</span>';
-                secondsEl.innerHTML = '00<span>Secs</span>';
-            }
+          addWishToCarousel(item, true);
+          if (wishInput) wishInput.value = '';
+          if (nameInput) nameInput.value = '';
+          updateCount();
+          sendBtn && (sendBtn.disabled = false, sendBtn.innerHTML = '<i class="fa fa-paper-plane" style="margin-right:8px;"></i> Send Wish');
+          showSuccess();
+
+          // If you wire a server/Firestore later, send the request here (fetch / addDoc)
+        });
+      }
+    })();
+    // === END CLEAN SCRIPT ===
+
+    // Play / Pause button behaviour (added)
+    (function () {
+      const audio = document.getElementById('weddingAudio');
+      const btn = document.getElementById('playMusic');
+      const footerEl = document.querySelector('footer');
+
+      if (!audio || !btn) return;
+
+      function updateButton() {
+        const icon = btn.querySelector('i');
+        if (!icon) return;
+        if (!audio.paused) {
+          btn.classList.add('playing');
+          btn.setAttribute('aria-pressed', 'true');
+          btn.setAttribute('aria-label', 'Pause music');
+          icon.className = 'fas fa-pause';
+        } else {
+          btn.classList.remove('playing');
+          btn.setAttribute('aria-pressed', 'false');
+          btn.setAttribute('aria-label', 'Play music');
+          icon.className = 'fas fa-play';
         }
+      }
 
-        let lastValues = { days: -1, hours: -1, minutes: -1, seconds: -1 };
-        function animateFlip(element, value) {
-            const key = element.id;
-            if (lastValues[key] !== value) {
-                element.style.animation = 'none';
-                setTimeout(() => element.style.animation = 'flipIn 0.6s ease-out', 10);
-                lastValues[key] = value;
-            }
-            element.innerHTML = `${value.toString().padStart(2, '0')}<span>${element.querySelector('span').textContent}</span>`;
+      // initial update (autoplay may be blocked; reflect actual state)
+      audio.addEventListener('play', updateButton);
+      audio.addEventListener('pause', updateButton);
+      audio.addEventListener('ended', updateButton);
+      // ensure state synced on load
+      setTimeout(updateButton, 300);
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // toggle play/pause
+        if (audio.paused) {
+          audio.play().catch(() => {
+            // Autoplay blocked or play failed — still update UI to show intent
+            updateButton();
+          });
+        } else {
+          audio.pause();
         }
+      });
 
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // === CAROUSELS ===
-        const photosInner = document.getElementById('photosInner');
-        const photoItems = photosInner.children;
-        let photoIndex = 0;
-        function slidePhotos() {
-            photoIndex = (photoIndex + 1) % photoItems.length;
-            photosInner.style.transform = `translateX(-${photoIndex * 100}%)`;
-        }
-        setInterval(slidePhotos, 3500);
-
-        const carouselInner = document.getElementById('carouselInner');
-        const items = carouselInner.children;
-        let currentIndex = 0;
-        function slideCarousel() {
-            currentIndex = (currentIndex + 1) % items.length;
-            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-        setInterval(slideCarousel, 4000);
+      // footer entrance animation when page finishes loading
+      window.addEventListener('load', () => {
+        footerEl && footerEl.classList.add('enter');
+      });
+    })();
     </script>
 </body>
 </html>
