@@ -320,29 +320,6 @@
             100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
         }
 
-        /* Floating Play Button */
-        #playMusic {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(212, 175, 55, 0.9);
-            border: 2px solid #d4af37;
-            color: white;
-            width: 60px; height: 60px;
-            border-radius: 50%;
-            font-size: 1.4em;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-        }
-        #playMusic:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-        }
-
         /* Mobile Optimizations */
         @media (max-width: 768px) {
             header {
@@ -382,12 +359,6 @@
             .photo-item img {
                 max-width: 250px;
             }
-            #playMusic {
-                width: 50px; height: 50px;
-                font-size: 1.2em;
-                bottom: 15px;
-                right: 15px;
-            }
         }
         @media (max-width: 480px) {
             header h1 {
@@ -409,20 +380,15 @@
 </head>
 <body>
 
-    <!-- Floating Play Button -->
-    <button id="playMusic">
-        <i class="fas fa-play"></i>
-    </button>
-
-    <!-- Local Audio -->
+    <!-- Local Audio (No autoplay) -->
     <audio id="weddingAudio" loop preload="auto">
-        <source src="music/seetha.mp3" type="audio/mpeg">
+        <source src="music/tara.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    
+    <!-- Header -->
     <header>
-        <h1>Keerthana & Vishnu</h1>
+        <h1>Keerthana & Vishnu1</h1>
         <p>invite you to our wedding celebration</p>
     </header>
 
@@ -493,39 +459,22 @@
     </footer>
 
     <script>
-        // === MUSIC PLAYER WITH AUTOPLAY FALLBACK ===
-        const playBtn = document.getElementById('playMusic');
+        // === PLAY MUSIC ON SCROLL (User Interaction) ===
         const audio = document.getElementById('weddingAudio');
-        const icon = playBtn.querySelector('i');
+        let hasScrolled = false;
 
-        // Try autoplay on load
-        audio.play().then(() => {
-            icon.classList.replace('fa-play', 'fa-pause');
-            playBtn.style.background = 'rgba(181, 101, 118, 0.9)';
-        }).catch(() => {
-            // Autoplay blocked → wait for user interaction
-        });
-
-        // Toggle play/pause
-        playBtn.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play().then(() => {
-                    icon.classList.replace('fa-play', 'fa-pause');
-                    playBtn.style.background = 'rgba(181, 101, 118, 0.9)';
-                });
-            } else {
-                audio.pause();
-                icon.classList.replace('fa-pause', 'fa-play');
-                playBtn.style.background = 'rgba(212, 175, 55, 0.9)';
-            }
-        });
-
-        // Auto-unlock after first click anywhere
-        document.body.addEventListener('click', () => {
-            if (audio.paused) {
+        function playOnScroll() {
+            if (!hasScrolled && window.scrollY > 50) {  // Trigger after 50px scroll
                 audio.play().catch(() => {});
+                hasScrolled = true;
+                // Remove listener after first play
+                window.removeEventListener('scroll', playOnScroll);
             }
-        }, { once: true });
+        }
+
+        // Also play on touchmove (for mobile)
+        window.addEventListener('scroll', playOnScroll);
+        window.addEventListener('touchmove', playOnScroll);
 
         // === COUNTDOWN ===
         const weddingDate = new Date('December 20, 2025 10:30:00').getTime();
