@@ -545,22 +545,29 @@
             color: #2b2b2b;
             font-weight: 600;
             letter-spacing: 0.2px;
+            position: relative;    /* keep text above the glow */
+            z-index: 2;
         }
         footer p:last-child::after {
             content: '';
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 14px;
-            width: 120px;
-            height: 6px;
+            bottom: -8px;          /* moved down so it doesn't overlap the text */
+            width: 160px;          /* slightly wider for a nicer accent */
+            height: 8px;           /* a bit taller for a softer glow */
             background: linear-gradient(90deg, rgba(212,175,55,0.9), rgba(181,101,118,0.9));
             border-radius: 6px;
-            filter: blur(6px);
+            filter: blur(8px);
             opacity: 0;
-            transition: opacity .35s ease;
+            transition: opacity .35s ease, bottom .35s ease;
+            z-index: 1;            /* behind the text */
+            pointer-events: none;
         }
-        footer.enter p:last-child::after { opacity: 1; }
+        footer.enter p:last-child::after {
+            opacity: 1;
+            bottom: -6px;          /* small upward shift when entering for a subtle motion */
+        }
         /* make footer content a little narrower on wide screens for better composition */
         @media (min-width: 880px) {
             footer { padding-left: 28px; padding-right: 28px; }
@@ -661,8 +668,8 @@
 
     <!-- Send Wishes (added) -->
     <section class="wishes-section" aria-labelledby="wishesHeading">
-        <h3 id="wishesHeading">Send your wishes</h3>
-        <p class="wishes-note">Share a short wish for the couple. Your message will appear in the quotes carousel for everyone to see.</p>
+        <h4 id="wishesHeading">Send your wishes</h4>
+        <p class="wishes-note">Share a short wish for the couple..</p>
 
         <form id="wishesForm" class="wishes-form" autocomplete="off" novalidate>
             <div>
@@ -690,7 +697,7 @@
             </div>
         </form>
 
-        <p style="font-size:.85rem;color:#888;margin-top:12px;">Note: Submitted wishes are visible to all visitors. Please avoid sharing personal data. Messages may be moderated.</p>
+        <p style="font-size:.85rem;color:#888;margin-top:12px;"></p>
     </section>
 
     <!-- Footer -->
